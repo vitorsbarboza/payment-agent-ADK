@@ -1,7 +1,6 @@
 # 💸 Send Money Agent - ADK Implementation
 
 ![Application Screenshot](./docs/app-screenshot.png)
-*[Upload your frontend screenshot here]*
 
 ---
 
