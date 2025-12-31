@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const API_BASE_URL = 'http://localhost:8000';
+// Detect if running in GitHub Codespaces and use the public URL
+const API_BASE_URL = window.location.hostname.includes('github.dev') 
+  ? `https://${window.location.hostname.replace(/-3000\./, '-8000.')}`
+  : 'http://localhost:8000';
 
 function App() {
   const [sessionId, setSessionId] = useState(null);

@@ -181,11 +181,11 @@ async def chat(request: ChatRequest):
         )
         
         # Add user message to history
-        history.append(Content(role="user", parts=[Part.from_text(request.message)]))
+        history.append(Content(role="user", parts=[Part(text=request.message)]))
         
         # Generate response
         response = client.models.generate_content(
-            model="gemini-2.0-flash-exp",
+            model="gemini-3-flash-preview", #gemini-2.0-flash
             contents=history,
             config=model_config
         )
@@ -205,7 +205,7 @@ async def chat(request: ChatRequest):
                 
                 # Get final response after tool execution
                 response = client.models.generate_content(
-                    model="gemini-2.0-flash-exp",
+                    model="gemini-3-flash-preview",
                     contents=history,
                     config=model_config
                 )
