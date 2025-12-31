@@ -185,7 +185,7 @@ async def chat(request: ChatRequest):
         
         # Generate response
         response = client.models.generate_content(
-            model="gemini-3-flash-preview", #gemini-2.0-flash
+            model="gemini-2.5-flash",
             contents=history,
             config=model_config
         )
@@ -205,7 +205,7 @@ async def chat(request: ChatRequest):
                 
                 # Get final response after tool execution
                 response = client.models.generate_content(
-                    model="gemini-3-flash-preview",
+                    model="gemini-2.5-flash", #gemini-2.5-pro
                     contents=history,
                     config=model_config
                 )
@@ -231,7 +231,21 @@ async def chat(request: ChatRequest):
         )
     
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        error_message = str(e)
+        
+        # Handle specific quota errors with user-friendly messages
+        if "RESOURCE_EXHAUSTED" in error_message or "quota" in error_message.lower():
+            raise HTTPException(
+                status_code=429,
+                detail="API quota exceeded. Please try again in a few moments or check your Google API quota limits."
+            )
+        elif "API key" in error_message:
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid API key. Please check your GOOGLE_API_KEY environment variable."
+            )
+        else:
+            raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/session/{session_id}/state")
