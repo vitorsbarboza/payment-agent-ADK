@@ -1,4 +1,5 @@
 # Main gitignore
+.env
 backend/.env
 backend/venv/
 backend/__pycache__/
