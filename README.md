@@ -84,7 +84,7 @@ I designed the solution to be:
 │               GOOGLE ADK AGENT (Core Logic)                  │
 │                                                              │
 │  ┌────────────────────────────────────────────────┐         │
-│  │  Gemini Model (gemini-2.0-flash-exp)          │         │
+│  │  Gemini Model (gemini-2.5-flash)          │         │
 │  │  - Natural Language Understanding              │         │
 │  │  - Tool Call Generation                        │         │
 │  │  - Response Generation                         │         │
@@ -130,7 +130,7 @@ User Input → FastAPI → Session Lookup → ADK Agent → Tool Calls?
 | Technology | Version | Purpose |
 |-----------|---------|---------|
 | **Google ADK** | 1.0.0 | Agent framework with tool-calling capabilities |
-| **Gemini 2.0 Flash Exp** | Latest | LLM for natural language understanding & generation |
+| **Gemini 2.5 Flash** | Latest | LLM for natural language understanding & generation |
 | **FastAPI** | 0.115.0 | High-performance async REST API framework |
 | **Pydantic** | 2.9.0 | Data validation and state schema definition |
 | **Uvicorn** | 0.32.0 | ASGI server for FastAPI |
@@ -156,12 +156,12 @@ User Input → FastAPI → Session Lookup → ADK Agent → Tool Calls?
 
 ### 1. **Why Google ADK?**
 
-**Choice:** Google Agent Development Kit (ADK) with Gemini 2.0 Flash Exp
+**Choice:** Google Agent Development Kit (ADK) with Gemini 2.5 Flash
 
 **Rationale:**
 - ✅ **Native tool-calling** - Built-in function calling without custom parsing
 - ✅ **Production-ready** - Google's official SDK with ongoing support
-- ✅ **Gemini 2.0 advantages** - Better reasoning, lower latency, cost-effective
+- ✅ **Gemini 2.5 advantages** - Better reasoning, lower latency, cost-effective
 - ✅ **Structured outputs** - Easy tool result processing
 - ✅ **Assignment compliance** - Specifically requested in requirements
 
@@ -374,7 +374,7 @@ def get_or_create_session(session_id: str) -> dict:
             "state": TransferState(),
             "history": [],
             "chat": client.chats.create(
-                model="gemini-2.0-flash-exp",
+                model="gemini-2.5-flash",
                 config=GenerateContentConfig(
                     system_instruction=create_system_instruction(),
                     tools=get_tools(),
@@ -953,7 +953,7 @@ All set!
 
 1. **ADK-First Design:**
    - "I chose Google ADK because it provides native tool-calling capabilities without custom parsing logic"
-   - "The Gemini 2.0 Flash Exp model offers excellent reasoning for conversational flows"
+   - "The Gemini 2.5 Flash model offers excellent reasoning for conversational flows"
    - "Stayed within ADK's patterns - no external routers needed"
 
 2. **State Management:**
@@ -1160,7 +1160,7 @@ Developed by **Vitor Barboza** for AI Engineer Technical Interview
 
 Built with:
 - Google Agent Development Kit (ADK)
-- Gemini 2.0 Flash Exp
+- Gemini 2.5 Flash
 - FastAPI
 - React
 - Tailwind CSS
